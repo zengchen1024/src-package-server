@@ -308,7 +308,10 @@ func (do *softwarePkgDO) toDoc() (bson.M, error) {
 }
 
 func (do *softwarePkgDO) docFilter() bson.M {
-	return bson.M{fieldPrimaryKey: do.Basic.Name}
+	return bson.M{
+		fieldPrimaryKey: do.Basic.Name,
+		fieldPhase:      bson.M{"$ne": dp.PackagePhaseClosed.PackagePhase()},
+	}
 }
 
 // softwarePkgRepoDO
